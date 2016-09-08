@@ -6,7 +6,7 @@ app.use((request, response, next) => {
 	next();
 });
 
-app.use(express.static('./public'));
+app.use(express.static('./'));
 
 app.get(/^\/(?!api)/, (request, response, next) => {
 	response.sendFile(__dirname + '/index.html');
