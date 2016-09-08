@@ -137,8 +137,8 @@ export default class MidsetCalculator extends React.Component {
 	}
 
 	_calculate = () => {
-		let x1 = (this.state.side1 % 2 ? 1 : -1) * (((50 - this.state.line1) * 8 / 5) + (this.state.out1 ? 1 : -1) * (this.state.xStep1 + this.state.xFrac1));
-		let x2 = (this.state.side2 % 2 ? 1 : -1) * (((50 - this.state.line2) * 8 / 5) + (this.state.out2 ? 1 : -1) * (this.state.xStep2 + this.state.xFrac2));
+		let x1 = (this.state.side1 % 2 ? -1 : 1) * (((50 - this.state.line1) * 8 / 5) + (this.state.out1 ? 1 : -1) * (this.state.xStep1 + this.state.xFrac1));
+		let x2 = (this.state.side2 % 2 ? -1 : 1) * (((50 - this.state.line2) * 8 / 5) + (this.state.out2 ? 1 : -1) * (this.state.xStep2 + this.state.xFrac2));
 		let xMid = (x1 + x2) * 0.5;
 
 		let side = xMid > 0 ? 2 : 1;
