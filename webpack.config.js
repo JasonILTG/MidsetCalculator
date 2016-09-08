@@ -3,10 +3,10 @@ var path = require('path');
 module.exports = {
 	devtool: 'eval-source-map',
 	entry: [
-		'./main.js'
+		'./react/main.js'
 	],
 	output: {
-		path: path.resolve(__dirname, '../TestServer/public'),
+		path: path.resolve(__dirname, './public'),
 		filename: 'app.js'
 	},
 	module: {

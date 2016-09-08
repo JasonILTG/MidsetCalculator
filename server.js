@@ -1,25 +1,32 @@
 import express from 'express';
 const app = express();
 
-import cookieParser from 'cookie-parser';
-import bodyParser from 'body-parser';
-
-import { logger, sendIndex, end } from './serverUtil.js';
-import { errorHandler } from './err.js';
-
-app.use(bodyParser.json());
-
-app.use(cookieParser());
-
-app.use(logger);
+app.use((request, response, next) => {
+	console.log(Date.now() + ": Request received.");
+	next();
+});
 
 app.use(express.static('./public'));
 
-app.get(/^\/(?!api)/, sendIndex);
+app.get(/^\/(?!api)/, (request, response, next) => {
+	response.sendFile(__dirname + '/index.html');
+});
 
-app.use(end);
+app.use((request, response) => {
+	response.end();
+});
 
-app.use(errorHandler);
+app.use((err, request, response, next) => {
+	console.log(err);
+
+	if (err === 'Invalid session') {
+		response.status(403);
+	} else {
+		response.status(500);
+	}
+
+	response.end();
+});
 
 let serverPort = 4242;
 app.listen(serverPort, function () {
