@@ -11,11 +11,22 @@ const centerStyle = {
 	textAlign: 'center'
 };
 
+const headerStyle = {
+	textAlign: 'center',
+	fontSize: '2em'
+};
+
+const buttonStyle = {
+	marginTop: '20px',
+	marginLeft: '10px',
+	marginRight: '5px'
+};
+
 const e = 2718282;
 const eThreshold = 4;
 
 const select10 = [
-	{value: 0, text: 'Select a number'},
+	{value: 0, text: 'Choose'},
 	{value: 1, text: '1'},
 	{value: 2, text: '2'},
 	{value: 3, text: '3'},
@@ -29,7 +40,7 @@ const select10 = [
 ];
 
 const select2 = [
-	{value: 0, text: 'Select a number'},
+	{value: 0, text: 'Choose'},
 	{value: 1, text: '1'},
 	{value: 2, text: '2'}
 ];
@@ -159,36 +170,52 @@ export default class MidsetCalculator extends React.Component {
 		});
 	}
 
+	_guideText = () => {
+		if (this.state.eReached) {
+			return <p style={centerStyle}>{"Choose a number between 1 and " + this.state.eLevel.toString() + ". If you don't match the computer's number, you " + (this.state.eLevel % 2 ? "win" : "lose") + "!"}</p>;
+		} else {
+			return <p style={centerStyle}>Choose a number between 1 and 10. Match the computer's number to win!</p>;
+		}
+	}
+
 	render() {
 		return (
-			<div>
-				<Dialog title="Loading..." open={this.state.loading} bodyStyle={centerStyle} titleStyle={centerStyle}>
-					<CircularProgress />
-				</Dialog>
+			<div style={{display: 'flex', justifyContent: 'center'}}>
+				<Paper style={{margin: 20, padding: 20, width: 800, textAlign: 'left'}} zDepth={1}>
+					<p style={headerStyle}>Who Wants to be a Mill-e-onaire?</p>
 
-				<p>{"Winnings: " + this.state.winnings.toString()}</p>
-				<SelectField
-					value={this.state.selected}
-					onChange={this._onChange}
-					style={{
-						margin: 5
-					}}>
-					
-					{this.state.select.map((item, idx) => (
-						<MenuItem value={item.value} primaryText={item.text} key={idx} />
-					))}
-				</SelectField>
+					<Dialog title="Loading..." open={this.state.loading} bodyStyle={centerStyle} titleStyle={centerStyle}>
+						<CircularProgress />
+					</Dialog>
 
-				<RaisedButton label="Submit" onClick={this._check} primary={true} disabled={this.state.gameOver} />
+					<p>{"Winnings: $" + this.state.winnings.toString()}</p>
 
-				<p>{"The computer chose: " + this.state.compChoice}</p>
+					{this._guideText()}
+					<div style={{display: 'flex', justifyContent: 'center'}}>
+						<SelectField
+							value={this.state.selected}
+							onChange={this._onChange}
+							style={{
+								margin: 5
+							}}>
+							
+							{this.state.select.map((item, idx) => (
+								<MenuItem value={item.value} primaryText={item.text} key={idx} />
+							))}
+						</SelectField>
 
-				{
-					this.state.gameOver ? <div>
-						<p>Game Over</p>
-						<RaisedButton label="Play Again" onClick={this._reset} secondary={true} />
-					</div> : null
-				}
+						<RaisedButton label="Submit" onClick={this._check} primary={true} disabled={this.state.gameOver} style={buttonStyle} />
+					</div>
+
+					<p>{"The computer chose: " + this.state.compChoice}</p>
+
+					{
+						this.state.gameOver ? <div>
+							<p>{"Game Over. You won $" + this.state.winnings + "!"}</p>
+							<RaisedButton label="Play Again" onClick={this._reset} secondary={true} />
+						</div> : null
+					}
+				</Paper>
 			</div>
 		)
 	}
