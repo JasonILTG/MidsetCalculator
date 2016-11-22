@@ -132,7 +132,7 @@ export default class MidsetCalculator extends React.Component {
 			submitted: false,
 			num: 1,
 			xAnswer: '',
-			yAnswer: '',
+			yAnswer: ''
 		};
 	}
 

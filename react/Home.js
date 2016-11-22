@@ -8,13 +8,12 @@ import { push } from 'react-router-redux'
 	}
 }))
 export default class Home extends React.Component {
-	componentWillMount() {
-		this.props.pushToMidset();
-	}
-
 	render() {
 		return (
-			<a href="/midset">Midset Calculator</a>
+			<div>
+				<a href="/midset">Midset Calculator</a>
+				<a href="/e">Stat MP Game</a>
+			</div>
 		);
 	}
 }

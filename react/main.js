@@ -15,7 +15,8 @@ const muiTheme = getMuiTheme(baseTheme);
 import store from '../redux/store.js';
 
 import Home from './Home.js';
-import MidsetCalculator from './MidsetCalculator';
+import MidsetCalculator from './MidsetCalculator.js';
+import StatMPGame from './StatMPGame.js';
 
 class App extends React.Component {
 	// This is needed for MUI.
@@ -53,6 +54,7 @@ const routes = (
 				<IndexRoute component={Home} />
 
 				<Route path="midset" component={MidsetCalculator} />
+				<Route path="e" component={StatMPGame} />
 			</Route>
 		</Router>
 	</Provider>
